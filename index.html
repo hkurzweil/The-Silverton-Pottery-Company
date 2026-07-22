@@ -204,6 +204,13 @@ a:focus-visible,button:focus-visible{
   background:rgba(239,224,200,.82);
   padding:.4rem .7rem;border-radius:999px;text-align:center;
 }
+/* a real photo, when one is present, covers the gradient entirely */
+.slot img,.building img{
+  position:absolute;inset:0;z-index:1;
+  width:100%;height:100%;object-fit:cover;display:block;
+}
+/* once a photo loads, drop the "add photo here" label */
+.slot:has(img)::after,.building:has(img)::after{content:none}
 .g-cobalt{background:linear-gradient(178deg,#0E1130 0%,#243191 18%,#4C63C8 30%,#9AAEEE 38%,#C98A4E 47%,#D9A268 72%,#B9713F 100%)}
 .g-jade{background:linear-gradient(178deg,#1D3B34 0%,#4F9A81 20%,#8FCBB4 33%,#DCC9A4 44%,#D3A171 70%,#B27443 100%)}
 .g-sun{background:linear-gradient(178deg,#5B3A12 0%,#C88C22 16%,#F0B429 28%,#F6E3B0 40%,#E8D3AE 62%,#C08A55 100%)}
@@ -235,6 +242,7 @@ a:focus-visible,button:focus-visible{
 .building{
   border:1px solid var(--rule);border-radius:18px;
   aspect-ratio:5/4;position:relative;overflow:hidden;
+  isolation:isolate;
   background:linear-gradient(170deg,#3E2E1C,#8A6234 55%,#C79447);
   display:flex;align-items:flex-end;justify-content:center;padding:1rem;
 }
@@ -324,7 +332,7 @@ footer{border-top:1px solid var(--rule);padding-block:2.5rem 3.5rem;font-size:.8
       <a href="#work">The pots</a>
       <a href="#studio">The building</a>
       <a href="#visit">Visit</a>
-      <a href="https://www.instagram.com/the_silverton_pottery_company/">Instagram</a>
+      <a href="https://www.instagram.com/the_silverton_pottery_company/" target="_blank" rel="noopener noreferrer">Instagram</a>
     </nav>
   </div>
 </div>
@@ -346,14 +354,14 @@ footer{border-top:1px solid var(--rule);padding-block:2.5rem 3.5rem;font-size:.8
         </p>
         <div class="btns">
           <a class="btn solid" href="#visit">Find the yellow building</a>
-          <a class="btn ghost" href="https://www.instagram.com/the_silverton_pottery_company/">See what's out of the kiln</a>
+          <a class="btn ghost" href="https://www.instagram.com/the_silverton_pottery_company/" target="_blank" rel="noopener noreferrer">See what's out of the kiln</a>
         </div>
       </div>
       <div>
         <p class="note hand">you'll know it by the flags &amp; the hand-painted sign →</p>
         <p style="color:var(--bisque-dim);font-size:.92rem;margin:0;max-width:34ch">
-          Pottery, fabric art, patches and hats. Open through the summer
-          season, most days the train is running.
+          Pottery, fabric art, patches and hats. Thursday through Sunday,
+          11 to 4, all summer season.
         </p>
       </div>
     </div>
@@ -387,7 +395,10 @@ footer{border-top:1px solid var(--rule);padding-block:2.5rem 3.5rem;font-size:.8
 
     <div class="work">
       <figure class="piece">
-        <div class="slot g-cobalt" data-slot="Photo → cobalt mug"></div>
+        <div class="slot g-cobalt" data-slot="Photo → cobalt mug">
+          <img src="images/mugs.jpg" alt="A stoneware mug with cobalt blue glaze breaking over toasted orange clay."
+               loading="lazy" onerror="this.remove()">
+        </div>
         <figcaption>
           <h3>Mugs</h3>
           <p>The big-handled ones. Cobalt floating blue breaking over toasted clay.</p>
@@ -395,7 +406,10 @@ footer{border-top:1px solid var(--rule);padding-block:2.5rem 3.5rem;font-size:.8
       </figure>
 
       <figure class="piece">
-        <div class="slot g-jade" data-slot="Photo → jade bowl"></div>
+        <div class="slot g-jade" data-slot="Photo → jade bowl">
+          <img src="images/bowls.jpg" alt="A wheel-thrown bowl glazed in jade green running to a thick sea-green bead."
+               loading="lazy" onerror="this.remove()">
+        </div>
         <figcaption>
           <h3>Bowls</h3>
           <p>Soup, cereal, keys by the door. Jade running down to a thick sea-green bead.</p>
@@ -403,7 +417,10 @@ footer{border-top:1px solid var(--rule);padding-block:2.5rem 3.5rem;font-size:.8
       </figure>
 
       <figure class="piece">
-        <div class="slot g-sun" data-slot="Photo → yellow drip cup"></div>
+        <div class="slot g-sun" data-slot="Photo → yellow drip cup">
+          <img src="images/cups.jpg" alt="A handleless stoneware tumbler with a yellow glaze dripping over a white liner."
+               loading="lazy" onerror="this.remove()">
+        </div>
         <figcaption>
           <h3>Cups &amp; tumblers</h3>
           <p>No handle, holds heat. Yellow drip over a white liner.</p>
@@ -411,7 +428,10 @@ footer{border-top:1px solid var(--rule);padding-block:2.5rem 3.5rem;font-size:.8
       </figure>
 
       <figure class="piece">
-        <div class="slot g-ink" data-slot="Photo → vase or planter"></div>
+        <div class="slot g-ink" data-slot="Photo → vase or planter">
+          <img src="images/vases.jpg" alt="A stoneware vase glazed in black over amber, holding cut flowers."
+               loading="lazy" onerror="this.remove()">
+        </div>
         <figcaption>
           <h3>Vases &amp; planters</h3>
           <p>Built for a fistful of sunflowers. Black glaze over amber.</p>
@@ -444,7 +464,10 @@ footer{border-top:1px solid var(--rule);padding-block:2.5rem 3.5rem;font-size:.8
       </p>
       <p class="hand" style="transform:rotate(-1.5deg)">come say hi to the dog</p>
     </div>
-    <div class="building" data-slot="Photo → the yellow building, flags flying"></div>
+    <div class="building" data-slot="Photo → the yellow building, flags flying">
+      <img src="images/shop.jpg" alt="The Silverton Pottery Company storefront: a small yellow wooden building on Blair Street with a hand-painted sign."
+           loading="lazy" onerror="this.remove()">
+    </div>
   </div>
 </section>
 
@@ -462,7 +485,7 @@ footer{border-top:1px solid var(--rule);padding-block:2.5rem 3.5rem;font-size:.8
         Walk up from the train depot and look for the yellow building
         with the hand-painted sign — about three minutes on foot.
       </p>
-      <a class="btn solid" href="https://maps.google.com/?q=1148+Blair+St+Silverton+CO+81433">Open in Maps</a>
+      <a class="btn solid" href="https://maps.google.com/?q=1148+Blair+St+Silverton+CO+81433" target="_blank" rel="noopener noreferrer">Open in Maps</a>
     </div>
 
     <div>
@@ -504,7 +527,7 @@ footer{border-top:1px solid var(--rule);padding-block:2.5rem 3.5rem;font-size:.8
       <strong style="font-family:var(--display);font-size:1.1rem">The Silverton Pottery Company</strong><br>
       <span style="color:var(--bisque-dim)">1148 Blair St · Silverton, CO 81433</span>
     </p>
-    <p style="margin:0"><a href="https://www.instagram.com/the_silverton_pottery_company/">@the_silverton_pottery_company</a></p>
+    <p style="margin:0"><a href="https://www.instagram.com/the_silverton_pottery_company/" target="_blank" rel="noopener noreferrer">@the_silverton_pottery_company</a></p>
     <p class="fine" style="margin:0">Made in a town of 600 people at the end of the Million Dollar Highway.</p>
   </div>
 </footer>
@@ -516,8 +539,13 @@ footer{border-top:1px solid var(--rule);padding-block:2.5rem 3.5rem;font-size:.8
    Times are 24h decimal (11.5 = 11:30am).
    ============================================================ */
 const HOURS = {
-  0:[11,16], 1:null, 2:[11,16], 3:[11,16],
-  4:[11,16], 5:[11,16], 6:[11,16]
+  0:[11,16],  // Sunday
+  1:null,     // Monday    — closed
+  2:null,     // Tuesday   — closed
+  3:null,     // Wednesday — closed
+  4:[11,16],  // Thursday
+  5:[11,16],  // Friday
+  6:[11,16]   // Saturday
 };
 const SEASON = { openMonth:4, closeMonth:9 }; // May (4) through October (9)
 
